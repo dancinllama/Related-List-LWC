@@ -1,12 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Meta file for the Related List Lightning Web Component
     Author: James Loghry (Demand Chain)
     Date: 12/17/2018
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="relatedList">
     <apiVersion>45.0</apiVersion>
     <isExposed>true</isExposed>
+    <!--
+        This file defines not only where the LWC can be used, but also where the properties for lightning app builder.
+        This replaces (and augments) the .design part of a Aura Component bundle.
+    -->
     <targets>
         <target>lightning__AppPage</target>
         <target>lightning__RecordPage</target>

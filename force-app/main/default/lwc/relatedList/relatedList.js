@@ -5,7 +5,7 @@
 import { LightningElement, wire, api, track } from 'lwc';
 import { getListUi } from 'lightning/uiListApi'; //Used for A) obtaining the records or data coming back and B) determining which fields to display.
 import { getObjectInfo } from 'lightning/uiObjectInfoApi'; //Used for describe calls (e.g. is a field editable, and what type of data is coming back in fields)
-import { isEmpty } from 'c/util'; //Custom utility module
+import { isEmpty } from 'c/util'; //Custom utility module.  Followed the "Share JavaScript Code" example here: https://gs0.lightning.force.com/docs/component-library/documentation/lwc/lwc.create_javascript_share_code
 
 //The logic for displaying a lightnig data table based on a list view and describe information (No Apex calls involved!)
 export default class RelatedList extends LightningElement {
@@ -15,6 +15,9 @@ export default class RelatedList extends LightningElement {
     records = []; //Array of records returned by the list view API wire
     fieldDescribes = []; //Array of describe information populated by the getObjectInfo wire.
 
+    //The getObjectInfo is a part of the user interface API and is chalk full of describe information, including field level describes.
+    //This example uses a function "wire" to handle the result of the call to the object info / user interface API.
+    //Documentation on wires can be found here, including the function example: https://gs0.lightning.force.com/docs/component-library/documentation/lwc/lwc.data_wire_service_about
     @wire(getObjectInfo, { objectApiName: '$objectApiName' })
     handleDescribe({ error, data }){
         //This method is called when the wire returns for the getObjectInfo call.
@@ -33,6 +36,8 @@ export default class RelatedList extends LightningElement {
         }
     }
 
+    //Uses the List View API? to fetch field info and records from the list view as defined in the Lightning App Builder.
+    //The wire / list view API is documented here: https://gs0.lightning.force.com/docs/component-library/documentation/lwc/lwc.reference_get_list_ui
     @wire(getListUi, { objectApiName: '$objectApiName', listViewApiName: '$listViewName' })
     records;
 
