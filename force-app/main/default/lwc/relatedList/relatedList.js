@@ -26,18 +26,15 @@ export default class RelatedList extends LightningElement {
     @wire(getObjectInfo, { objectApiName: '$objectApiName' })
     handleDescribe({ error, data }){
         //This method is called when the wire returns for the getObjectInfo call.
-        var field = null;
-        var fieldApiName = null;
-        this.fieldDescribes = [];
         if (data) {
+            this.fieldDescribes = [];
             //Logic to run on success.
             //Mapping the describe results to a map of fields (for use when generating the data table columns)
-            for(field of Object.keys(data.fields)){
-                fieldApiName = data.fields[field].apiName;
-                this.fieldDescribes[fieldApiName] = data.fields[field];
-            }
+            Object.keys(data.fields).forEach(field => { 
+                this.fieldDescribes[data.fields[field].apiName] = data.fields[field];
+            })
         }else if(error){
-            //Here's where error logic for the describe would take place.
+            this.error = error;
         }
     }
 
