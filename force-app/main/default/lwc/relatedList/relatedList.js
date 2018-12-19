@@ -47,26 +47,21 @@ export default class RelatedList extends LightningElement {
     //The method converts the records from the list view API format into the format needed by the lightning data table component.
     get rows(){
         //Bah, I hate declaring variables up here, but gotta do what ya gotta do.
-        var rows = [];
-        var record = null;
-        var row = null;
-        var column = null;
-        var currentField = null;
+        let rows = [];
 
         //Map the list view output to the lightning data table format output.
-        if(!isEmpty(this.records) && !isEmpty(this.records.data)){
+        if(this.records && this.records.data && this.records.data.records){
             //Iterate through the list view records and map them to a friendlier data table-esque format.
-            for(record of this.records.data.records.records){
-                row = {};
-                for(  column of this.columns){
-                    currentField = record.fields[column.fieldName];
-                    if(!isEmpty(currentField)){
-                        row[column.fieldName] = currentField.value;
+            rows = this.records.data.records.records.map(record => { 
+                let row = {};
+                this.columns.forEach(column => {
+                    if (record.fields[column.fieldName]) {
+                        row[column.fieldName] = record.fields[column.fieldName].value;
                     }
+                });
+                return row;
+            });
                 }
-                rows.push(row);
-            }
-        }
         return rows;
     }
 
