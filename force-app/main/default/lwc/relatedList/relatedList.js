@@ -5,7 +5,6 @@
 import { LightningElement, wire, api, track } from 'lwc';
 import { getListUi } from 'lightning/uiListApi'; //Used for A) obtaining the records or data coming back and B) determining which fields to display.
 import { getObjectInfo } from 'lightning/uiObjectInfoApi'; //Used for describe calls (e.g. is a field editable, and what type of data is coming back in fields)
-import { isEmpty } from 'c/util'; //Custom utility module.  Followed the "Share JavaScript Code" example here: https://gs0.lightning.force.com/docs/component-library/documentation/lwc/lwc.create_javascript_share_code
 
 //The logic for displaying a lightnig data table based on a list view and describe information (No Apex calls involved!)
 export default class RelatedList extends LightningElement {
