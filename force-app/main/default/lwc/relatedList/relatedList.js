@@ -69,38 +69,24 @@ export default class RelatedList extends LightningElement {
     //This converts from the list view API into the data table format, but also applies describe information,
     //Such as determining if a column is editable, determines the label that is displayed, and also what data type to pass to the data table.
     get columns(){
-        var columns = [];
-        var displayColumn = null;
-        var fieldDescribe;
-        var dataType = null;
-
-        //This will grow, but some of the types that come back (e.g. from the Schema.DisplayType enum) don't quite
-        //Match up with what the lightning data table component likes, so this is just a mapping between the two types.
-        var describeToDataTableMap = {
-            "String" : "text"
-        };
+        let columns = [];
 
         //Map the list view output to the lightning data table format output.
-        if(!isEmpty(this.records) && !isEmpty(this.records.data) && !isEmpty(this.records.data.info)){
-            for(displayColumn of this.records.data.info.displayColumns){
-                fieldDescribe = this.fieldDescribes[displayColumn.fieldApiName];
-                if(!isEmpty(fieldDescribe)){
-                    dataType = describeToDataTableMap[fieldDescribe.dataType];
-                    if(isEmpty(dataType)){
+        if (this.records && this.records.data && this.records.data.info) {
+            columns = this.records.data.info.displayColumns.map(displayColumn => {
+                let dataType = DESCRIBE_TO_DATA_TABLE_MAP[this.fieldDescribes[displayColumn.fieldApiName].dataType];
+                if (!dataType) { 
                         dataType = 'text';
                     }
-
-                    columns.push({
+                return {
                         fieldName: displayColumn.fieldApiName,
                         label : displayColumn.label,
                         sortable : displayColumn.sortable,
-                        editable : fieldDescribe.createable,
+                    editable : this.fieldDescribes[displayColumn.fieldApiName].createable,
                         type : dataType.toLowerCase()
+                };
                     });
                 }
-            }
-            return columns;
-        }
         return columns;
     }
 }
