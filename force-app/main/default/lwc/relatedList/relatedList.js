@@ -6,6 +6,12 @@ import { LightningElement, wire, api, track } from 'lwc';
 import { getListUi } from 'lightning/uiListApi'; //Used for A) obtaining the records or data coming back and B) determining which fields to display.
 import { getObjectInfo } from 'lightning/uiObjectInfoApi'; //Used for describe calls (e.g. is a field editable, and what type of data is coming back in fields)
 
+//This will grow, but some of the types that come back (e.g. from the Schema.DisplayType enum) don't quite
+//Match up with what the lightning data table component likes, so this is just a mapping between the two types.
+const DESCRIBE_TO_DATA_TABLE_MAP = {
+    "String" : "text"
+};
+
 //The logic for displaying a lightnig data table based on a list view and describe information (No Apex calls involved!)
 export default class RelatedList extends LightningElement {
     @api objectApiName; //Configured via Lightning App Builder, String of the API name to show
