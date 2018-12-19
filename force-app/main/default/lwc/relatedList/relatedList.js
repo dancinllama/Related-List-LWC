@@ -16,7 +16,7 @@ const DESCRIBE_TO_DATA_TABLE_MAP = {
 export default class RelatedList extends LightningElement {
     @api objectApiName; //Configured via Lightning App Builder, String of the API name to show
     @api listViewName; //Configured via Lightniung App Builder (see meta.xml), String of the list view to show.
-    @track error; //Not really used yet.
+    @track error; //Standard error handler for errorPanel component
     records = []; //Array of records returned by the list view API wire
     fieldDescribes = []; //Array of describe information populated by the getObjectInfo wire.
 
