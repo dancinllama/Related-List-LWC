@@ -1,7 +1,12 @@
 <template>
-    <lightning-datatable
-            data={rows}
-            columns={columns}
-            key-field="id">
-    </lightning-datatable>
+    <template if:true={rows}>
+        <lightning-datatable
+                data={rows}
+                columns={columns}
+                key-field="id">
+        </lightning-datatable>
+    </template>
+    <template if:true={error}>
+        <c-error-panel errors={error}></c-error-panel>
+    </template>
 </template>
