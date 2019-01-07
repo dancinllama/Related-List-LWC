@@ -1,8 +1,4 @@
 version: 2
-
-# Defining default values for all jobs
-defaults: &defaults
-  
 jobs:
   build:
     working_directory: ~/repo
