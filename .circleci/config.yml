@@ -1,8 +1,20 @@
-version: 2
+version: 1
 jobs:
-  build:
-    docker: # use the docker executor type; machine and macos executors are also supported
-      - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
+  runtests:
+    docker:
+      - image: dancinllama/dockerdx
     steps:
-      - checkout # check out the code in the project directory
-      - run: echo "hello world" # run the `echo` command
+      - checkout
+      - run: echo "A first hello"
+  two:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - checkout
+      - run: echo "A more familiar hi"
+      - run: sleep 15
+workflows:
+  version: 1
+  build:
+    jobs:
+      - runtests
