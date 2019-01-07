@@ -2,6 +2,7 @@ version: 2
 
 # Defining default values for all jobs
 defaults: &defaults
+  working_directory: ~/repo
   docker:
     - image: dancinllama/dockerdx
     
@@ -11,7 +12,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/repo
       - run:
           name: Lint Lightning Web Components
           command: |
@@ -21,7 +22,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: ~/
+          at: ~/repo
       - run:
           name: Unit Test Lightning Web Components
           command: |
