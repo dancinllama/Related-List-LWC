@@ -2,35 +2,21 @@ version: 2
 
 # Defining default values for all jobs
 defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: dancinllama/dockerdx
-    
+  
 jobs:
-  lint:
-  # This lints Lightning Web Components.
-    <<: *defaults
+  build:
+    working_directory: ~/repo
+    docker:
+        - image: dancinllama/dockerdx
     steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Lint Lightning Web Components
-          command: |
-              npm run lint:lwc
-  test:
-  # This runs Jest unit tests for Lightning Web Components.
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Unit Test Lightning Web Components
-          command: |
+        - checkout
+        - run:
+            name: Install JEST
+            command: |
               ls -la
               npm install @salesforce/lwc-jest --save-dev
               npm run test:unit
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - test
+      - run:
+          name: Run Lightning Web Component Unit Tests
+          command: |
+              npm run test:unit
