@@ -1,0 +1,5 @@
+{
+    "scripts": {
+        "test:unit": "lwc-jest"
+    }
+}

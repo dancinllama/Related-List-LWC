@@ -2,7 +2,14 @@
     "compilerOptions": {
         "experimentalDecorators": true,
         "baseUrl": ".",
-        "paths": {}
+        "paths": {
+            "c/error-panel": [
+                "errorPanel/errorPanel.js"
+            ],
+            "c/related-list": [
+                "relatedList/relatedList.js"
+            ]
+        }
     },
     "include": [
         "**/*",
