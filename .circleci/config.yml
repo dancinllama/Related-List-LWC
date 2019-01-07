@@ -1,8 +1,33 @@
 version: 2
+
+# Defining default values for all jobs
+defaults: &defaults
+  docker:
+    - image: dancinllama/dockerdx
+    
 jobs:
-  build:
-    docker:
-      - image: dancinllama/dockerdx
+  lint:
+  # This lints Lightning Web Components.
+    <<: *defaults
     steps:
-      - checkout # check out the code in the project directory
-      - run: echo "Starting tests" # run the `echo` command
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Lint Lightning Web Components
+          command: |
+              npm run lint:lwc
+  test:
+  # This runs Jest unit tests for Lightning Web Components.
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Unit Test Lightning Web Components
+          command: |
+              npm run test:unit
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
