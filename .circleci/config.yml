@@ -26,6 +26,7 @@ jobs:
       - run:
           name: Unit Test Lightning Web Components
           command: |
+              ls -la
               npm install @salesforce/lwc-jest --save-dev
               npm run test:unit
 workflows:
