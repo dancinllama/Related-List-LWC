@@ -5,14 +5,9 @@ jobs:
     docker:
         - image: dancinllama/dockerdx
     steps:
-        - checkout
-        - run:
-            name: Install JEST
-            command: |
-              ls -la
-              npm install @salesforce/lwc-jest --save-dev
-              npm run test:unit
+      - checkout
       - run:
           name: Run Lightning Web Component Unit Tests
           command: |
+              npm install @salesforce/lwc-jest --save-dev
               npm run test:unit
