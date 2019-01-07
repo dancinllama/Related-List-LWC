@@ -1,0 +1,20 @@
+version: 1
+jobs:
+  runtests:
+    docker:
+      - image: dancinllama/dockerdx
+    steps:
+      - checkout
+      - run: echo "A first hello"
+  two:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - checkout
+      - run: echo "A more familiar hi"
+      - run: sleep 15
+workflows:
+  version: 1
+  build:
+    jobs:
+      - runtests
