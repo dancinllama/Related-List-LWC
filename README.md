@@ -1,6 +1,10 @@
 # Related-List-LWC
 My first real foray into Lightning Web Components - an sobject / list view driven lightning data table
 
+# Build Status
+[![CircleCI](https://circleci.com/gh/dancinllama/Related-List-LWC.svg?style=svg)](https://circleci.com/gh/dancinllama/Related-List-LWC)
+
+# Instructions
 To install or explore this component:
 
 1) Follow the Quick Start here: https://trailhead.salesforce.com/content/learn/projects/quick-start-lightning-web-components (Note, install the pre-release plugin if you already have SFDX installed! Otherwise, you will get some gnarly errors!)
