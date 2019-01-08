@@ -1,0 +1,11 @@
+{
+    "fields" : {
+        "Name": {
+            "fieldName": "Name",
+            "label": "Name",
+            "sortable": true,
+            "editable": true,
+            "dataType": "text"
+        }
+    }
+}

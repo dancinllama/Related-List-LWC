@@ -30,9 +30,9 @@ export default class RelatedList extends LightningElement {
             this.fieldDescribes = [];
             //Logic to run on success.
             //Mapping the describe results to a map of fields (for use when generating the data table columns)
-            Object.keys(data.fields).forEach(field => { 
+            Object.keys(data.fields).forEach(field => {
                 this.fieldDescribes[data.fields[field].apiName] = data.fields[field];
-            })
+            });
         }else if(error){
             this.error = error;
         }
@@ -41,7 +41,13 @@ export default class RelatedList extends LightningElement {
     //Uses the List View API? to fetch field info and records from the list view as defined in the Lightning App Builder.
     //The wire / list view API is documented here: https://gs0.lightning.force.com/docs/component-library/documentation/lwc/lwc.reference_get_list_ui
     @wire(getListUi, { objectApiName: '$objectApiName', listViewApiName: '$listViewName' })
-    records;
+    handleRecordsCallback({error, data}){
+        if(data){
+            this.records = data;
+        }else if(error){
+            //
+        }
+    }
 
     //This is a getter and is called anytime that the lightning data table should be rerendered (I think, anyway ;-))
     //The method converts the records from the list view API format into the format needed by the lightning data table component.
@@ -52,7 +58,7 @@ export default class RelatedList extends LightningElement {
         //Map the list view output to the lightning data table format output.
         if(this.records && this.records.data && this.records.data.records){
             //Iterate through the list view records and map them to a friendlier data table-esque format.
-            rows = this.records.data.records.records.map(record => { 
+            rows = this.records.data.records.records.map(record => {
                 let row = {};
                 this.columns.forEach(column => {
                     if (record.fields[column.fieldName]) {
@@ -61,7 +67,7 @@ export default class RelatedList extends LightningElement {
                 });
                 return row;
             });
-                }
+        }
         return rows;
     }
 
@@ -70,12 +76,12 @@ export default class RelatedList extends LightningElement {
     //Such as determining if a column is editable, determines the label that is displayed, and also what data type to pass to the data table.
     get columns(){
         let columns = [];
-
         //Map the list view output to the lightning data table format output.
-        if (this.records && this.records.data && this.records.data.info) {
-            columns = this.records.data.info.displayColumns.map(displayColumn => {
+        if (this.records && this.records.info){
+            //columns = this.records.data.info.displayColumns.map(displayColumn => {
+            columns = this.records.info.displayColumns.map(displayColumn => {
                 let dataType = DESCRIBE_TO_DATA_TABLE_MAP[this.fieldDescribes[displayColumn.fieldApiName].dataType];
-                if (!dataType) { 
+                if (!dataType) {
                         dataType = 'text';
                     }
                 return {
@@ -85,8 +91,8 @@ export default class RelatedList extends LightningElement {
                     editable : this.fieldDescribes[displayColumn.fieldApiName].createable,
                         type : dataType.toLowerCase()
                 };
-                    });
-                }
+            });
+        }
         return columns;
     }
 }

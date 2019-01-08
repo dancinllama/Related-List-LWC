@@ -1,0 +1,20 @@
+{
+    "info" : {
+        "displayColumns" : [{
+            "fieldApiName" : "Name",
+            "fieldName": "Name",
+            "label": "Name",
+            "sortable": true,
+            "editable": true,
+            "dataType": "text"
+        }]
+    },
+    "records":{
+        "records":[{
+            "Name" : {
+                "value" : "Test Account",
+                "displayValue" : "Test Account"
+            }
+        }]
+    }
+}
